@@ -228,6 +228,132 @@ The resulting application is a simple, interactive counter that allows users to 
 
 %=============================================================================
 
+
+\newpage
+\section{Level C: Deeper Understanding}
+
+\subsection{Strengths}
+
+ JavaScript is versatile in nature, which enables developers to create dynamic and interactive web applications. As Ian Deed (2023) states "JavaScript has been the single most popular programming language worldwide for some time now." \cite{PangeaBestPractices}. Being lightweight and effective, allowing event-driven and asynchronous programming, and having a wide ecosystem with a variety of libraries and frameworks are some of JavaScript's key strengths. In addition, JavaScript may be used for full-stack development because it can be executed on both the client and server side (using Node.js).
+
+\subsection{Weaknesses}
+Even though it is so popular, JavaScript has certain drawbacks. Because it is not a strictly-typed language, it may exhibit unpredictable behaviour and have elusive bugs. Additionally, the language lacks some capabilities available in other programming languages, such as appropriate multithreading support and namespaces, which can make developing large-scale applications more difficult. Furthermore, due to its client-side execution, JavaScript may run less quickly than languages that are compiled and raise security issues. Tutorials Point highlights this security issue, explaining that the user can see the JavaScript code \cite{TutorialsPointAdvDisadv}. This creates a potential of misuse, whereby code is added to a website that compromises the security of data sent through the website.
+
+\subsection{Usefulness}
+A highly interactive and aesthetically pleasing e-commerce website for businesses can be created using JavaScript. Developers may construct responsive and captivating user interfaces that improve the shopping experience. This is done by combining JavaScript's frontend capabilities with libraries and frameworks like React or Angular. JavaScript enables the seamless implementation of features like product filters, real-time inventory updates, and customised suggestions. This improved user experience can increase user engagement, customer happiness, and ultimately conversion rates, which can raise revenue for the business.
+
+\subsection{Key Question 1}
+JavaScript should be used for interactive web applications, as the programming language excels at building dynamic and interactive web applications, where user interactions or real-time updates are essential. It should also be used in full-stack development, as using JavaScript and NodeJS allows developers to use the same language for both frontend and backend, simplifying the development process. On the other hand, JavaScript should not be used for static websites. If a website is static and doesn't require user interaction, JavaScript may not be necessary, as HTML and CSS can suffice. Due to the aforementioned security concerns, JavaScript should also not be used in security-sensitive applications, as the code can be easily viewed and manipulated on the client side. 
+
+
+\subsection{Key Question 2}
+Because they offer reusable code, structure, and best practises, JavaScript frameworks streamline and speed up web development. As well as imposing a particular design to promote organisation and maintainability, they include built-in components and utilities for quickly building complicated features with little code. Angular, React, Vue, Ember, and Backbone are some popular JavaScript frameworks. These frameworks, created with JavaScript, increase its functionalities and allow programmers to create web applications more quickly while meeting particular requirements and providing particular benefits.
+
+%=============================================================================
+
+\newpage
+\section{Level D: Evolution of skills}
+\vspace{5mm}
+\subsection{Level D Demonstration}
+
+I developed an interactive Tic Tac Toe game using HTML and CSS to build the interface, and JavaScript to handle the game's logic and interactivity. The game features a 3x3 grid where two players, X and O, take turns clicking on the squares to make their moves. The game displays the current player's turn, detects wins or draws, and allows users to restart the game at any time. 
+
+\subsection{Application artifacts}
+
+The Tic Tac Toe application I created is a web-based game that allows two players to play against each other, with one player using 'X' and the other using 'O'. It has a 3x3 grid layout, and the objective is to get three of the same symbols in a row, either horizontally, vertically, or diagonally.
+
+I began by setting up the HTML structure with the basic layout of the game: a title for displaying the current player's turn, a 3x3 grid of buttons as the game board, and a "Restart Game" button (Figure 9). Using CSS, I styled the game board, squares, and restart button. The boardwrapper class defines the width and height of the game board, while the boardsquare class styles individual squares, setting their dimensions, background color, font size, and cursor style. The restart class styles the "Restart Game" button.
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Images/ttt1.png}
+    \caption{Game interface}
+    \label{fig:screenshot}
+\end{figure}
+
+I then began to introduce JavaScript to make the game interactive. I initialised game variables to track the current player (currentPlayer), the game's status (gameOver), and the board's state (board). I also selected all the squares on the board using querySelectorAll (Figure 10).
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/ttt2.png}
+    \caption{Initialising game variables}
+    \label{fig:screenshot}
+\end{figure}
+
+The next section of my code was the most important, and handled all the game logic. I had to be very careful about the logic flow of my program. Firstly, I added click event listeners to every square of the board using the forEach method. Since "board" is an array of length nine, and there are nine squares, each index of the "board" array maps to a corresponding square. This is important for calculating which player has won (Figure 11).
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/ttt3.png}
+    \caption{All logical game conditions}
+    \label{fig:screenshot}
+\end{figure}
+
+When a square is clicked, the board state and display are updated (line 15-16 in Figure 11). The script updates the board array with the current player's symbol at that position "board[i]" and displays the symbol in the clicked square using "square.innerHTML = currentPlayer".
+
+When I tested my game, I discovered I needed to account for two edge cases. I considered the case where a player selects a square that has already been chosen. The game board should NOT override the new selection. Further, if a game is a draw, and there are empty squares remaining, they should not be clickable. To allow this to work, the callback function for the event checks if the clicked square is empty and if the game is still ongoing before making a move. This is reflected in line 10-13 in Figure 11.
+
+I also handled switching players after every turn, and updating the title display to reflect the current player's turn (line 28-29 in Figure 11). The switchPlayers function toggles the current player between 'X' and 'O' by using a ternary operator: "currentPlayer = currentPlayer === 'X' ? 'O' : 'X';"
+
+I then worked on the checkWin function (Figure 12). The checkWin function checks for a winning combination using an array of winning index sets (winningIndicies). It iterates through these sets and compares the symbols at those indices on the board. If the symbols match and are not undefined, the function returns true, indicating a win. 
+
+Checking if the symbols are undefined was a crucial step in the logic of my code. Initially, the board array is of length 9 and undefined in every slot. This would mean the symbols would be equivalent in a winning combination, and wrongfully return true. Therefore, it is important to check if a square is populated, and that the matching symbols aren't a result of empty squares.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/ttt4.png}
+    \caption{Function to check if a win has occured}
+    \label{fig:screenshot}
+\end{figure}
+
+If there is a win, the board's title is updated to reflect this (Figure 13), and the gameOver state is set to true, to ensure no more squares can be clicked. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Images/ttt5.png}
+    \caption{Board title changing to reflect X's win. No other squares can be clicked}
+    \label{fig:screenshot}
+\end{figure}
+
+Checking if there is a draw was more straightforward. The checkDraw function checks if all squares on the board are filled by iterating through the board array. If it finds an undefined value, it returns false. Otherwise, it returns true, indicating a tie (Figure 14). It is important to check this condition only once we know there has not been a win, as it is possible to win with a filled board. If a draw has occured, the board title is updated (Figure 15).
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/ttt6.png}
+    \caption{Function to check if a draw has occured}
+    \label{fig:screenshot}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Images/ttt7.png}
+    \caption{Board title changing to reflect a draw}
+    \label{fig:screenshot}
+\end{figure}
+
+The final thing to consider is restarting the game. The "Restart Game" button has an onclick attribute that triggers the restartGame function. This function resets the gameOver variable, creates a new empty board array, clears the square content, and updates the title display to show the current player's turn (Figure 16).
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/ttt8.png}
+    \caption{Function to restart the game}
+    \label{fig:screenshot}
+\end{figure}
+
+\subsection{Alternative tools/technologies}
+
+Two alternative tools/technologies to JavaScript for developing a Tic Tac Toe game are Python (with a web framework like Flask) and TypeScript.
+
+\subsection{Comparative Analysis}
+
+Python (with Flask): The Python web framework Flask can be used to build lightweight web applications. Python with Flask may be prefered over JavaScript in circumstances where a developer has a strong foundation in Python and wishes to use only one language for both backend and frontend development. Real-time communication can be achieved by using a library like Flask-SocketIO, making it simpler to create multiplayer games. Python is also well suited for rapid prototyping and development because to its extensive ecosystem of libraries and readability.
+
+TypeScript: TypeScript is a statically-typed superset of JavaScript that adds optional type-checking to the language.  TypeScript may be prefered over JavaScript in circumstances when a bigger-scale Tic Tac Toe game is being developed, such as one with sophisticated features, complex logic, or a component of a larger programme. Static typing in TypeScript can aid in the early detection of type-related mistakes, enhancing the dependability and maintainability of the code. Other developers will find it simpler to comprehend and contribute to the codebase thanks to the improved code readability and IDE support provided by the extra type information.
+
+However, because it is natively supported by web browsers without the need for any additional tools or plugins, JavaScript is a fantastic option for smaller projects or for addressing a wide range of browsers and devices. Because of its adaptability and dynamic character, it also permits rapid development and iteration.
+%=============================================================================
+
 \newpage
 
 \bibliographystyle{IEEEtran}
